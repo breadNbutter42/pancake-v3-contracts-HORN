@@ -1,8 +1,8 @@
-SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity =0.7.6;
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
+// License-Identifier: GPL-2.0-or-later
 //pragma solidity >=0.5.0;
 /// @title The interface for the PancakeSwap V3 Factory
 /// @notice The PancakeSwap V3 Factory facilitates creation of PancakeSwap V3 pools and control over the protocol fees
@@ -108,64 +108,9 @@ interface IPancakeV3Factory {
 }
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
-//pragma solidity >=0.5.0;
-import './pool/IPancakeV3PoolImmutables.sol';
-import './pool/IPancakeV3PoolState.sol';
-import './pool/IPancakeV3PoolDerivedState.sol';
-import './pool/IPancakeV3PoolActions.sol';
-import './pool/IPancakeV3PoolOwnerActions.sol';
-import './pool/IPancakeV3PoolEvents.sol';
-/// @title The interface for a PancakeSwap V3 Pool
-/// @notice A PancakeSwap pool facilitates swapping and automated market making between any two assets that strictly conform
-/// to the ERC20 specification
-/// @dev The pool interface is broken up into many smaller pieces
-interface IPancakeV3Pool is
-    IPancakeV3PoolImmutables,
-    IPancakeV3PoolState,
-    IPancakeV3PoolDerivedState,
-    IPancakeV3PoolActions,
-    IPancakeV3PoolOwnerActions,
-    IPancakeV3PoolEvents
-{
-}
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
-//pragma solidity >=0.5.0;
-/// @title An interface for a contract that is capable of deploying PancakeSwap V3 Pools
-/// @notice A contract that constructs a pool must implement this to pass arguments to the pool
-/// @dev This is used to avoid having constructor arguments in the pool contract, which results in the init code hash
-/// of the pool being constant allowing the CREATE2 address of the pool to be cheaply computed on-chain
-interface IPancakeV3PoolDeployer {
-    /// @notice Get the parameters to be used in constructing the pool, set transiently during pool creation.
-    /// @dev Called by the pool constructor to fetch the parameters of the pool
-    /// Returns factory The factory address
-    /// Returns token0 The first token of the pool by address sort order
-    /// Returns token1 The second token of the pool by address sort order
-    /// Returns fee The fee collected upon every swap in the pool, denominated in hundredths of a bip
-    /// Returns tickSpacing The minimum number of ticks between initialized ticks
-    function parameters()
-        external
-        view
-        returns (
-            address factory,
-            address token0,
-            address token1,
-            uint24 fee,
-            int24 tickSpacing
-        );
-    function deploy(
-        address factory,
-        address token0,
-        address token1,
-        uint24 fee,
-        int24 tickSpacing
-    ) external returns (address pool);
-}
-
-
-// SPDX-License-Identifier: GPL-2.0-or-later
+// License-Identifier: GPL-2.0-or-later
 //pragma solidity >=0.5.0;
 /// @title Permissionless pool actions
 /// @notice Contains pool methods that can be called by anyone
@@ -263,7 +208,7 @@ interface IPancakeV3PoolActions {
 }
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
+// License-Identifier: GPL-2.0-or-later
 //pragma solidity >=0.5.0;
 /// @title Pool state that is not stored
 /// @notice Contains view functions to provide information about the pool that is computed rather than stored on the
@@ -303,7 +248,7 @@ interface IPancakeV3PoolDerivedState {
 }
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
+// License-Identifier: GPL-2.0-or-later
 //pragma solidity >=0.5.0;
 /// @title Events emitted by a pool
 /// @notice Contains all events emitted by the pool
@@ -426,7 +371,7 @@ interface IPancakeV3PoolEvents {
 }
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
+// License-Identifier: GPL-2.0-or-later
 //pragma solidity >=0.5.0;
 /// @title Pool state that never changes
 /// @notice These parameters are fixed for a pool forever, i.e., the methods will always return the same values
@@ -457,7 +402,7 @@ interface IPancakeV3PoolImmutables {
 }
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
+// License-Identifier: GPL-2.0-or-later
 //pragma solidity >=0.5.0;
 /// @title Permissioned pool actions
 /// @notice Contains pool methods that may only be called by the factory owner
@@ -482,7 +427,7 @@ interface IPancakeV3PoolOwnerActions {
 }
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
+// License-Identifier: GPL-2.0-or-later
 //pragma solidity >=0.5.0;
 /// @title Pool state that can change
 /// @notice These methods compose the pool's state, and can change with any frequency including multiple times
@@ -591,11 +536,59 @@ interface IPancakeV3PoolState {
 }
 
 
-// SPDX-License-Identifier: GPL-2.0-or-later
+// License-Identifier: GPL-2.0-or-later
+//pragma solidity >=0.5.0;
+/// @title The interface for a PancakeSwap V3 Pool
+/// @notice A PancakeSwap pool facilitates swapping and automated market making between any two assets that strictly conform
+/// to the ERC20 specification
+/// @dev The pool interface is broken up into many smaller pieces
+interface IPancakeV3Pool is
+    IPancakeV3PoolImmutables,
+    IPancakeV3PoolState,
+    IPancakeV3PoolDerivedState,
+    IPancakeV3PoolActions,
+    IPancakeV3PoolOwnerActions,
+    IPancakeV3PoolEvents
+{
+}
+
+
+// License-Identifier: GPL-2.0-or-later
+//pragma solidity >=0.5.0;
+/// @title An interface for a contract that is capable of deploying PancakeSwap V3 Pools
+/// @notice A contract that constructs a pool must implement this to pass arguments to the pool
+/// @dev This is used to avoid having constructor arguments in the pool contract, which results in the init code hash
+/// of the pool being constant allowing the CREATE2 address of the pool to be cheaply computed on-chain
+interface IPancakeV3PoolDeployer {
+    /// @notice Get the parameters to be used in constructing the pool, set transiently during pool creation.
+    /// @dev Called by the pool constructor to fetch the parameters of the pool
+    /// Returns factory The factory address
+    /// Returns token0 The first token of the pool by address sort order
+    /// Returns token1 The second token of the pool by address sort order
+    /// Returns fee The fee collected upon every swap in the pool, denominated in hundredths of a bip
+    /// Returns tickSpacing The minimum number of ticks between initialized ticks
+    function parameters()
+        external
+        view
+        returns (
+            address factory,
+            address token0,
+            address token1,
+            uint24 fee,
+            int24 tickSpacing
+        );
+    function deploy(
+        address factory,
+        address token0,
+        address token1,
+        uint24 fee,
+        int24 tickSpacing
+    ) external returns (address pool);
+}
+
+
+// License-Identifier: GPL-2.0-or-later
 //pragma solidity =0.7.6;
-import './interfaces/IPancakeV3Factory.sol';
-import "./interfaces/IPancakeV3PoolDeployer.sol";
-import './interfaces/IPancakeV3Pool.sol';
 /// @title Canonical PancakeSwap V3 factory
 /// @notice Deploys PancakeSwap V3 pools and manages ownership and control over pool protocol fees
 contract PancakeV3Factory is IPancakeV3Factory {
