@@ -1,19 +1,25 @@
 #!/usr/bin/env zx
 // import 'zx/globals'
+import { $ } from 'zx'; // Import $ from zx
 
 const networks = {
-  eth: 'eth',
-  goerli: 'goerli',
-  bscMainnet: 'bscMainnet',
-  bscTestnet: 'bscTestnet',
-  hardhat: 'hardhat',
-   local: 'local', 
+    eth: 'eth',
+    goerli: 'goerli',
+    bscMainnet: 'bscMainnet',
+    bscTestnet: 'bscTestnet',
+    hardhat: 'hardhat',
+    local: 'localhost', // Change network name to "localhost"
 }
 
 let network = process.env.NETWORK
 console.log(network, 'network')
 if (!network || !networks[network]) {
-  throw new Error(`env NETWORK: ${network}`)
+    throw new Error(`env NETWORK: ${network}`)
+}
+
+// Adjusting the check for the "local" network
+if (network === 'local') {
+    network = networks[network]; // Correcting the network name to "localhost"
 }
 
 await $`yarn workspace @pancakeswap/v3-core run hardhat run scripts/deploy.ts --network ${network}`
@@ -35,11 +41,11 @@ const p = await fs.readJson(`./projects/v3-periphery/deployments/${network}.json
 const l = await fs.readJson(`./projects/v3-lm-pool/deployments/${network}.json`)
 
 const addresses = {
-  ...m,
-  ...r,
-  ...c,
-  ...p,
-  ...l,
+    ...m,
+    ...r,
+    ...c,
+    ...p,
+    ...l,
 }
 
 console.log(chalk.blue('Writing to file...'))
